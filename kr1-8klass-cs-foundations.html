@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Информатика 8 класс: Контрольная работа № 1 (Системы счисления и логика)</title>
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --surface: #ffffff;
+      --surface-soft: #f8fafc;
+      --primary: #1d4ed8;
+      --primary-dark: #1e3a8a;
+      --primary-light: #dbeafe;
+      --accent: #0f766e;
+      --accent-light: #ccfbf1;
+      --success: #059669;
+      --success-light: #d1fae5;
+      --warning: #d97706;
+      --warning-light: #fef3c7;
+      --danger: #dc2626;
+      --danger-light: #fee2e2;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --border: #cbd5e1;
+      --radius: 16px;
+      --shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 56px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+    }
+
+    .topbar-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .topbar-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+
+    .score-pill {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+
+    .timer-box {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transition: width 0.35s ease;
+    }
+
+    .nav-pills {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-top: 10px;
+      scrollbar-width: none;
+    }
+
+    .nav-pills::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-pill {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.83rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .nav-pill.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .nav-pill.done {
+      border-color: var(--success);
+      color: var(--success);
+      background: var(--success-light);
+    }
+
+    .nav-pill.active.done {
+      background: var(--success);
+      color: #fff;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 20px auto 0;
+      padding: 0 16px;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(203, 213, 225, 0.75);
+    }
+
+    .module {
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .module.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 1.28rem;
+      margin-bottom: 12px;
+      color: var(--primary-dark);
+    }
+
+    h3 {
+      font-size: 1.06rem;
+      margin: 16px 0 8px;
+    }
+
+    p {
+      margin-bottom: 12px;
+    }
+
+    .time-tag {
+      display: inline-block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 3px 10px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .callout {
+      background: var(--surface-soft);
+      border-left: 4px solid var(--primary);
+      padding: 14px 16px;
+      border-radius: 0 12px 12px 0;
+      margin: 14px 0;
+    }
+
+    .callout.warn {
+      border-left-color: var(--warning);
+      background: var(--warning-light);
+    }
+
+    .callout.success {
+      border-left-color: var(--success);
+      background: var(--success-light);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+      margin: 14px 0;
+    }
+
+    .info-box {
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .info-box strong {
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 6px;
+      color: var(--primary-dark);
+    }
+
+    .ref-strip {
+      background: #0f172a;
+      color: #e2e8f0;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.88rem;
+      padding: 12px 14px;
+      border-radius: 12px;
+      margin: 12px 0;
+      line-height: 1.65;
+    }
+
+    .interactive-zone {
+      background: #f8fafc;
+      border: 2px dashed #93c5fd;
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-top: 16px;
+    }
+
+    .interactive-title {
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 18px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: #cbd5e1;
+    }
+
+    .btn-success {
+      background: var(--success);
+    }
+
+    .btn-success:hover {
+      background: #047857;
+    }
+
+    .btn-sm {
+      padding: 8px 15px;
+      font-size: 0.88rem;
+      border-radius: 8px;
+    }
+
+    .nav-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 22px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 1rem;
+      margin: 8px 0 12px;
+    }
+
+    /* Задания с вводом и выбором */
+    .task-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+
+    .task-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .num-expr {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 1.08rem;
+      font-weight: 800;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      padding: 5px 12px;
+      border-radius: 8px;
+    }
+
+    .ans-input {
+      padding: 8px 12px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 1rem;
+      font-weight: 700;
+      width: 165px;
+    }
+
+    .ans-input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .ans-input.ok {
+      border-color: var(--success);
+      background: var(--success-light);
+      color: #065f46;
+    }
+
+    .ans-input.bad {
+      border-color: var(--danger);
+      background: var(--danger-light);
+      color: #991b1b;
+    }
+
+    .choice-btn {
+      background: var(--surface-soft);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .choice-btn:hover {
+      background: #e2e8f0;
+    }
+
+    .choice-btn.selected {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .choice-btn.correct {
+      background: var(--success);
+      color: #fff;
+      border-color: var(--success);
+    }
+
+    .choice-btn.wrong {
+      background: var(--danger);
+      color: #fff;
+      border-color: var(--danger);
+    }
+
+    /* Таблица истинности */
+    table.tt {
+      width: 100%;
+      max-width: 420px;
+      margin: 10px auto;
+      border-collapse: collapse;
+      background: var(--surface);
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.96rem;
+    }
+
+    table.tt th, table.tt td {
+      border: 1px solid var(--border);
+      padding: 8px 10px;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    table.tt th {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    .tt-sel {
+      padding: 5px 10px;
+      border-radius: 6px;
+      border: 2px solid var(--border);
+      font-family: "Courier New", Courier, monospace;
+      font-weight: 800;
+      font-size: 0.96rem;
+    }
+
+    .tt-sel.ok {
+      border-color: var(--success);
+      background: var(--success-light);
+      color: #065f46;
+    }
+
+    .tt-sel.bad {
+      border-color: var(--danger);
+      background: var(--danger-light);
+      color: #991b1b;
+    }
+
+    .svg-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      margin: 12px 0;
+      text-align: center;
+      overflow-x: auto;
+    }
+
+    .svg-box svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    /* Тест (Блок 4) */
+    .quiz-q {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .quiz-opt {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 10px 14px;
+      margin-top: 8px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface-soft);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 0.93rem;
+      transition: all 0.15s;
+    }
+
+    .quiz-opt:hover {
+      border-color: var(--primary);
+    }
+
+    .quiz-opt.selected {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      font-weight: 600;
+    }
+
+    .quiz-opt.correct {
+      border-color: var(--success);
+      background: var(--success-light);
+      color: #065f46;
+      font-weight: 700;
+    }
+
+    .quiz-opt.wrong {
+      border-color: var(--danger);
+      background: var(--danger-light);
+      color: #991b1b;
+    }
+
+    /* Итоговая ведомость */
+    .cert-box {
+      border: 3px solid var(--primary);
+      background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
+      border-radius: 18px;
+      padding: 24px;
+      text-align: center;
+      margin-top: 18px;
+    }
+
+    .cert-grade {
+      display: inline-block;
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--success);
+      background: var(--success-light);
+      padding: 8px 24px;
+      border-radius: 12px;
+      margin: 12px 0;
+    }
+
+    .breakdown-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 8px;
+      margin: 14px 0;
+      text-align: left;
+    }
+
+    .bd-item {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 0.88rem;
+    }
+
+    .feedback {
+      margin-top: 10px;
+      font-weight: 600;
+      font-size: 0.93rem;
+    }
+
+    @media (max-width: 600px) {
+      .card { padding: 16px; }
+      h1 { font-size: 1.3rem; }
+      h2 { font-size: 1.15rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="topbar-row">
+        <span class="badge">Информатика • 8 класс • Контрольная работа № 1</span>
+        <span class="score-pill" id="liveScoreDisplay">Баллы: 0 / 20</span>
+        <span class="timer-box" id="timerDisplay">Время: 00:00 / 45:00</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressBar"></div>
+      </div>
+      <nav class="nav-pills" id="navPills">
+        <button class="nav-pill active" onclick="goToStep(0)">Старт и памятка</button>
+        <button class="nav-pill" onclick="goToStep(1)">Блок 1. Перевод СС (4 б.)</button>
+        <button class="nav-pill" onclick="goToStep(2)">Блок 2. Арифметика (4 б.)</button>
+        <button class="nav-pill" onclick="goToStep(3)">Блок 3. Логика и схемы (5 б.)</button>
+        <button class="nav-pill" onclick="goToStep(4)">Блок 4. Итоговый тест (7 б.)</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- ШАГ 0: ВВЕДЕНИЕ И ОПОРНАЯ ПАМЯТКА -->
+    <section class="module active" id="step-0">
+      <div class="card">
+        <span class="time-tag">Контрольная работа № 1 • 45 минут • Максимум 20 баллов</span>
+        <h1>Теоретические основы информатики (системы счисления и логика)</h1>
+        <p>Эта интерактивная контрольная работа состоит из <strong>4 тематических блоков</strong>. В каждом блоке ты выполняешь практические задания и нажимаешь кнопку <strong>«Зафиксировать ответы блока»</strong> — система начислит баллы и покажет разбор. В конце сформируется итоговая ведомость с оценкой.</p>
+
+        <div class="ref-strip">
+          <strong>Опорная таблица перед началом работы:</strong><br />
+          • Степени двойки: 2⁰=1, 2¹=2, 2²=4, 2³=8, 2⁴=16, 2⁵=32, 2⁶=64, 2⁷=128, 2⁸=256<br />
+          • Шестнадцатеричные цифры: A=10, B=11, C=12, D=13, E=14, F=15<br />
+          • Приоритет логических операций: 1) Инверсия (¬ / НЕ) → 2) Конъюнкция (∧ / И) → 3) Дизъюнкция (∨ / ИЛИ)
+        </div>
+
+        <div class="callout warn">
+          <strong>Шкала оценивания контрольной работы (из 20 баллов):</strong><br />
+          • <strong>18–20 баллов</strong> — оценка <strong>«5»</strong> (Отлично)<br />
+          • <strong>14–17 баллов</strong> — оценка <strong>«4»</strong> (Хорошо)<br />
+          • <strong>10–13 баллов</strong> — оценка <strong>«3»</strong> (Удовлетворительно)<br />
+          • <strong>0–9 баллов</strong> — оценка <strong>«2»</strong> (Неудовлетворительно)
+        </div>
+
+        <label for="studentNameInput"><strong>Введи фамилию, имя и класс перед началом работы:</strong></label>
+        <input type="text" id="studentNameInput" class="input-field" placeholder="Например: Смирнов Артём, 8-А" />
+
+        <div class="nav-footer">
+          <span></span>
+          <button class="btn" onclick="startLesson()">Приступить к контрольной работе →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ШАГ 1: БЛОК 1 — ПЕРЕВОД ЧИСЕЛ МЕЖДУ СИСТЕМАМИ СЧИСЛЕНИЯ (4 БАЛЛА) -->
+    <section class="module" id="step-1">
+      <div class="card">
+        <span class="time-tag">Блок 1 • Рекомендуемое время: 10 минут • Максимум: 4 балла</span>
+        <h2>1. Перевод чисел между системами счисления</h2>
+        <p>Выполни перевод чисел на черновике (развёрнутая форма записи или деление на основание) и впиши в поля <strong>только цифры ответа</strong> (без нижних индексов основания).</p>
+
+        <div class="interactive-zone">
+          <div class="interactive-title">Задания блока 1 (по 1 баллу за каждый верный перевод)</div>
+
+          <div class="task-card">
+            <div><strong>Задание 1.1.</strong> Переведите число из двоичной системы счисления в десятичную:</div>
+            <div class="task-row">
+              <span class="num-expr">101101₂</span>
+              <span>=</span>
+              <input type="number" id="b1-q1" class="ans-input" placeholder="Ответ в 10-й СС" />
+              <span>(в десятичной СС)</span>
+            </div>
+          </div>
+
+          <div class="task-card">
+            <div><strong>Задание 1.2.</strong> Переведите число из восьмеричной системы счисления в десятичную:</div>
+            <div class="task-row">
+              <span class="num-expr">73₈</span>
+              <span>=</span>
+              <input type="number" id="b1-q2" class="ans-input" placeholder="Ответ в 10-й СС" />
+              <span>(в десятичной СС)</span>
+            </div>
+          </div>
+
+          <div class="task-card">
+            <div><strong>Задание 1.3.</strong> Переведите число из шестнадцатеричной системы счисления в десятичную:</div>
+            <div class="task-row">
+              <span class="num-expr">2A₁₆</span>
+              <span>=</span>
+              <input type="number" id="b1-q3" class="ans-input" placeholder="Ответ в 10-й СС" />
+              <span>(в десятичной СС)</span>
+            </div>
+          </div>
+
+          <div class="task-card">
+            <div><strong>Задание 1.4.</strong> Переведите десятичное число в двоичную систему счисления:</div>
+            <div class="task-row">
+              <span class="num-expr">37₁₀</span>
+              <span>=</span>
+              <input type="text" id="b1-q4" class="ans-input" placeholder="Ответ в 2-й СС" />
+              <span>(в двоичной СС, только 0 и 1)</span>
+            </div>
+          </div>
+
+          <button class="btn btn-sm" id="btnLockB1" onclick="gradeBlock1()">Зафиксировать ответы блока 1</button>
+          <div class="feedback" id="b1Feedback"></div>
+        </div>
+
+        <div class="nav-footer">
+          <button class="btn btn-secondary" onclick="goToStep(0)">← К памятке</button>
+          <button class="btn" onclick="goToStep(2)">Дальше: Блок 2 (Арифметика) →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ШАГ 2: БЛОК 2 — ДВОИЧНАЯ АРИФМЕТИКА И СРАВНЕНИЕ ЧИСЕЛ (4 БАЛЛА) -->
+    <section class="module" id="step-2">
+      <div class="card">
+        <span class="time-tag">Блок 2 • Рекомендуемое время: 10 минут • Максимум: 4 балла</span>
+        <h2>2. Двоичная арифметика и сравнение чисел</h2>
+        <p>Вспомни правило сложения в двоичной системе: <code>1₂ + 1₂ = 10₂</code> (0 пишем, 1 переносим в старший разряд). Для сравнения чисел в разных системах счисления переведи оба числа в десятичную систему.</p>
+
+        <div class="interactive-zone">
+          <div class="interactive-title">Задания блока 2 (по 1 баллу за каждое задание)</div>
+
+          <div class="task-card">
+            <div><strong>Задание 2.1.</strong> Вычислите сумму двух двоичных чисел (ответ запишите в двоичной СС):</div>
+            <div class="task-row">
+              <span class="num-expr">1011₂ + 110₂</span>
+              <span>=</span>
+              <input type="text" id="b2-q1" class="ans-input" placeholder="Сумма в 2-й СС" />
+            </div>
+          </div>
+
+          <div class="task-card">
+            <div><strong>Задание 2.2.</strong> Вычислите произведение двух двоичных чисел (ответ запишите в двоичной СС):</div>
+            <div class="task-row">
+              <span class="num-expr">101₂ × 11₂</span>
+              <span>=</span>
+              <input type="text" id="b2-q2" class="ans-input" placeholder="Произведение в 2-й СС" />
+            </div>
+          </div>
+
+          <div class="task-card">
+            <div><strong>Задание 2.3.</strong> Сравните два числа, записанных в разных системах счисления:</div>
+            <div class="task-row" id="b2-cmp1-row">
+              <span class="num-expr">11010₂</span>
+              <button class="choice-btn" onclick="pickCmp('c1', '<', this)">&lt;</button>
+              <button class="choice-btn" onclick="pickCmp('c1', '=', this)">=</button>
+              <button class="choice-btn" onclick="pickCmp('c1', '>', this)">&gt;</button>
+              <span class="num-expr">32₈</span>
+            </div>
+          </div>
+
+          <div class="task-card">
+            <div><strong>Задание 2.4.</strong> Сравните шестнадцатеричное и двоичное числа:</div>
+            <div class="task-row" id="b2-cmp2-row">
+              <span class="num-expr">1F₁₆</span>
+              <button class="choice-btn" onclick="pickCmp('c2', '<', this)">&lt;</button>
+              <button class="choice-btn" onclick="pickCmp('c2', '=', this)">=</button>
+              <button class="choice-btn" onclick="pickCmp('c2', '>', this)">&gt;</button>
+              <span class="num-expr">11101₂</span>
+            </div>
+          </div>
+
+          <button class="btn btn-sm" id="btnLockB2" onclick="gradeBlock2()">Зафиксировать ответы блока 2</button>
+          <div class="feedback" id="b2Feedback"></div>
+        </div>
+
+        <div class="nav-footer">
+          <button class="btn btn-secondary" onclick="goToStep(1)">← Блок 1</button>
+          <button class="btn" onclick="goToStep(3)">Дальше: Блок 3 (Логика и схемы) →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ШАГ 3: БЛОК 3 — АЛГЕБРА ЛОГИКИ, ТАБЛИЦА ИСТИННОСТИ И СХЕМА (5 БАЛЛОВ) -->
+    <section class="module" id="step-3">
+      <div class="card">
+        <span class="time-tag">Блок 3 • Рекомендуемое время: 12 минут • Максимум: 5 баллов</span>
+        <h2>3. Логические высказывания, таблицы истинности и вентили</h2>
+
+        <div class="interactive-zone">
+          <div class="interactive-title">Задание 3.1. Определите истинность высказываний (по 1 баллу)</div>
+
+          <div class="task-card">
+            <div><strong>А)</strong> <code>НЕ (число 15 чётное) И (15 &gt; 10)</code></div>
+            <div class="task-row" id="b3-st1-row">
+              <button class="choice-btn" onclick="pickStmt('s1', '1', this)">Истина (1)</button>
+              <button class="choice-btn" onclick="pickStmt('s1', '0', this)">Ложь (0)</button>
+            </div>
+          </div>
+
+          <div class="task-card">
+            <div><strong>Б)</strong> <code>(2 × 2 = 5) ИЛИ НЕ (число 12 делится на 3)</code></div>
+            <div class="task-row" id="b3-st2-row">
+              <button class="choice-btn" onclick="pickStmt('s2', '1', this)">Истина (1)</button>
+              <button class="choice-btn" onclick="pickStmt('s2', '0', this)">Ложь (0)</button>
+            </div>
+          </div>
+
+          <hr style="margin: 18px 0; border: none; border-top: 1px solid var(--border);" />
+
+          <div class="interactive-title">Задание 3.2. Заполните таблицу истинности для F = ¬A ∨ (A ∧ B) (до 2 баллов)</div>
+          <table class="tt">
+            <thead>
+              <tr>
+                <th>A</th>
+                <th>B</th>
+                <th>F = ¬A ∨ (A ∧ B)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>0</td><td>0</td>
+                <td><select class="tt-sel" id="tt-0"><option value="">?</option><option value="0">0</option><option value="1">1</option></select></td>
+              </tr>
+              <tr>
+                <td>0</td><td>1</td>
+                <td><select class="tt-sel" id="tt-1"><option value="">?</option><option value="0">0</option><option value="1">1</option></select></td>
+              </tr>
+              <tr>
+                <td>1</td><td>0</td>
+                <td><select class="tt-sel" id="tt-2"><option value="">?</option><option value="0">0</option><option value="1">1</option></select></td>
+              </tr>
+              <tr>
+                <td>1</td><td>1</td>
+                <td><select class="tt-sel" id="tt-3"><option value="">?</option><option value="0">0</option><option value="1">1</option></select></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <hr style="margin: 18px 0; border: none; border-top: 1px solid var(--border);" />
+
+          <div class="interactive-title">Задание 3.3. Определите выходной сигнал F логической схемы (1 балл)</div>
+          <p style="font-size: 0.92rem;">На входы схемы поданы сигналы: <strong>A = 1</strong>, <strong>B = 0</strong>, <strong>C = 1</strong>. Чему равен сигнал на выходе <strong>F</strong>?</p>
+
+          <div class="svg-box">
+            <svg viewBox="0 0 560 190" style="max-width:560px;">
+              <!-- Входы A и B -> И (&) -->
+              <line x1="25" y1="40" x2="125" y2="40" stroke="#1d4ed8" stroke-width="2.5"/>
+              <text x="45" y="32" font-size="13" font-weight="bold" fill="#1d4ed8">A = 1</text>
+              <line x1="25" y1="80" x2="125" y2="80" stroke="#64748b" stroke-width="2.5"/>
+              <text x="45" y="72" font-size="13" font-weight="bold" fill="#475569">B = 0</text>
+              <rect x="125" y="25" width="60" height="70" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2.2"/>
+              <text x="170" y="48" font-size="18" font-weight="bold" text-anchor="middle" fill="#1d4ed8">&amp;</text>
+              <polyline points="185,60 270,60 270,82 325,82" fill="none" stroke="#475569" stroke-width="2.5"/>
+
+              <!-- Вход C -> НЕ (1o) -->
+              <line x1="25" y1="145" x2="125" y2="145" stroke="#1d4ed8" stroke-width="2.5"/>
+              <text x="45" y="137" font-size="13" font-weight="bold" fill="#1d4ed8">C = 1</text>
+              <rect x="125" y="120" width="54" height="50" rx="6" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.2"/>
+              <text x="164" y="140" font-size="16" font-weight="bold" text-anchor="middle" fill="#7c3aed">1</text>
+              <circle cx="185" cy="145" r="5" fill="#ffffff" stroke="#7c3aed" stroke-width="2.2"/>
+              <polyline points="190,145 270,145 270,115 325,115" fill="none" stroke="#475569" stroke-width="2.5"/>
+
+              <!-- Вентиль ИЛИ (1) -->
+              <rect x="325" y="65" width="64" height="68" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2.2"/>
+              <text x="372" y="90" font-size="18" font-weight="bold" text-anchor="middle" fill="#1d4ed8">1</text>
+
+              <!-- Выход F -->
+              <line x1="389" y1="99" x2="520" y2="99" stroke="#0f172a" stroke-width="3"/>
+              <text x="455" y="88" font-size="14" font-weight="bold" text-anchor="middle" fill="#0f172a">Выход F = ?</text>
+            </svg>
+          </div>
+
+          <div class="task-row" id="b3-gate-row" style="justify-content: center; margin-bottom: 12px;">
+            <button class="choice-btn" onclick="pickGate('0', this)">Выход F = 0</button>
+            <button class="choice-btn" onclick="pickGate('1', this)">Выход F = 1</button>
+          </div>
+
+          <button class="btn btn-sm" id="btnLockB3" onclick="gradeBlock3()">Зафиксировать ответы блока 3</button>
+          <div class="feedback" id="b3Feedback"></div>
+        </div>
+
+        <div class="nav-footer">
+          <button class="btn btn-secondary" onclick="goToStep(2)">← Блок 2</button>
+          <button class="btn" onclick="goToStep(4)">Дальше: Блок 4 (Итоговый тест) →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ШАГ 4: БЛОК 4 — ИТОГОВЫЙ ТЕСТ И ВЕДОМОСТЬ (7 БАЛЛОВ) -->
+    <section class="module" id="step-4">
+      <div class="card">
+        <span class="time-tag">Блок 4 • Рекомендуемое время: 10 минут • Максимум: 7 баллов</span>
+        <h2>4. Итоговый тест по теме</h2>
+        <p>Ответь на 7 тестовых заданий (по 1 баллу за каждый правильный ответ), затем нажми кнопку завершения контрольной работы.</p>
+
+        <div id="finalQuizContainer"></div>
+
+        <button class="btn btn-success" id="btnFinishKR" style="width: 100%; margin-top: 10px;" onclick="finishControlWork()">Завершить контрольную работу и сформировать ведомость</button>
+
+        <div id="certificateSection" style="display: none;">
+          <div class="cert-box">
+            <div style="font-size: 0.88rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 700;">
+              Итоговая ведомость контрольной работы № 1 • Информатика 8 класс
+            </div>
+            <h2 id="certStudentName" style="margin: 8px 0; color: var(--text);">Ученик 8 класса</h2>
+            <p style="margin-bottom: 4px;">Тема: «Теоретические основы информатики (системы счисления и логика)»</p>
+            <div class="cert-grade" id="certGradeText">Оценка: 5 (Отлично)</div>
+            <p id="certStats" style="font-weight: 700;"></p>
+
+            <div class="breakdown-grid" id="certBreakdown"></div>
+
+            <p id="certCode" style="font-family: monospace; font-size: 0.9rem; color: var(--text-muted); margin-top: 8px;"></p>
+            <div class="callout success" style="text-align: left; margin-top: 12px;">
+              Сделай скриншот этой ведомости и отправь учителю для выставления оценки в журнал!
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-footer">
+          <button class="btn btn-secondary" onclick="goToStep(3)">← Блок 3</button>
+          <button class="btn btn-secondary btn-sm" onclick="resetAll()">Пройти заново</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // --- СОСТОЯНИЕ КОНТРОЛЬНОЙ РАБОТЫ ---
+    const state = {
+      currentStep: 0,
+      completedSteps: [false, false, false, false, false],
+      secondsElapsed: 0,
+      studentName: "",
+      scores: { b1: 0, b2: 0, b3: 0, b4: 0 },
+      locked: { b1: false, b2: false, b3: false, b4: false },
+      b2Cmp: { c1: null, c2: null },
+      b3Stmt: { s1: null, s2: null },
+      b3Gate: null
+    };
+
+    // --- ТАЙМЕР ---
+    setInterval(() => {
+      state.secondsElapsed++;
+      const m = String(Math.floor(state.secondsElapsed / 60)).padStart(2, "0");
+      const s = String(state.secondsElapsed % 60).padStart(2, "0");
+      document.getElementById("timerDisplay").textContent = `Время: ${m}:${s} / 45:00`;
+    }, 1000);
+
+    // --- НАВИГАЦИЯ И ОБНОВЛЕНИЕ БАЛЛОВ ---
+    function goToStep(idx) {
+      document.querySelectorAll(".module").forEach((el, i) => el.classList.toggle("active", idx === i));
+      document.querySelectorAll(".nav-pill").forEach((pill, i) => {
+        pill.classList.toggle("active", idx === i);
+        pill.classList.toggle("done", state.completedSteps[i]);
+      });
+      state.currentStep = idx;
+      updateProgress();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function markStepDone(idx) {
+      state.completedSteps[idx] = true;
+      const pills = document.querySelectorAll(".nav-pill");
+      if (pills[idx]) pills[idx].classList.add("done");
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const done = state.completedSteps.filter(Boolean).length;
+      const pct = Math.min(100, Math.round((done / 4) * 100));
+      document.getElementById("progressBar").style.width = `${pct}%`;
+
+      const total = state.scores.b1 + state.scores.b2 + state.scores.b3 + state.scores.b4;
+      document.getElementById("liveScoreDisplay").textContent = `Баллы: ${total} / 20`;
+    }
+
+    function startLesson() {
+      const val = document.getElementById("studentNameInput").value.trim();
+      state.studentName = val || "Ученик 8 класса";
+      markStepDone(0);
+      goToStep(1);
+    }
+
+    // --- БЛОК 1: ПЕРЕВОД СИСТЕМ СЧИСЛЕНИЯ (4 БАЛЛА) ---
+    function gradeBlock1() {
+      if (state.locked.b1) return;
+
+      const v1 = document.getElementById("b1-q1").value.trim();
+      const v2 = document.getElementById("b1-q2").value.trim();
+      const v3 = document.getElementById("b1-q3").value.trim();
+      const v4 = document.getElementById("b1-q4").value.trim().replace(/\s+/g, "");
+
+      if (!v1 || !v2 || !v3 || !v4) {
+        alert("Заполни все 4 поля в Блоке 1 перед фиксацией ответов!");
+        return;
+      }
+
+      let pts = 0;
+      const checks = [
+        { id: "b1-q1", ok: Number(v1) === 45 },
+        { id: "b1-q2", ok: Number(v2) === 59 },
+        { id: "b1-q3", ok: Number(v3) === 42 },
+        { id: "b1-q4", ok: v4 === "100101" }
+      ];
+
+      checks.forEach(c => {
+        const inp = document.getElementById(c.id);
+        inp.disabled = true;
+        if (c.ok) { inp.classList.add("ok"); pts++; }
+        else { inp.classList.add("bad"); }
+      });
+
+      state.scores.b1 = pts;
+      state.locked.b1 = true;
+      document.getElementById("btnLockB1").disabled = true;
+      markStepDone(1);
+
+      const fb = document.getElementById("b1Feedback");
+      fb.style.color = pts === 4 ? "var(--success)" : "var(--primary-dark)";
+      fb.textContent = `Блок 1 зафиксирован: ${pts} из 4 баллов. Верные ответы: 1) 45; 2) 59; 3) 42; 4) 100101.`;
+    }
+
+    // --- БЛОК 2: АРИФМЕТИКА И СРАВНЕНИЕ (4 БАЛЛА) ---
+    function pickCmp(key, sign, btn) {
+      if (state.locked.b2) return;
+      state.b2Cmp[key] = sign;
+      const rowId = key === "c1" ? "b2-cmp1-row" : "b2-cmp2-row";
+      document.getElementById(rowId).querySelectorAll(".choice-btn").forEach(b => b.classList.remove("selected"));
+      btn.classList.add("selected");
+    }
+
+    function gradeBlock2() {
+      if (state.locked.b2) return;
+
+      const a1 = document.getElementById("b2-q1").value.trim().replace(/\s+/g, "");
+      const a2 = document.getElementById("b2-q2").value.trim().replace(/\s+/g, "");
+      if (!a1 || !a2 || !state.b2Cmp.c1 || !state.b2Cmp.c2) {
+        alert("Выполни все 4 задания в Блоке 2 перед фиксацией!");
+        return;
+      }
+
+      let pts = 0;
+      const inp1 = document.getElementById("b2-q1");
+      const inp2 = document.getElementById("b2-q2");
+      inp1.disabled = true;
+      inp2.disabled = true;
+
+      if (a1 === "10001") { inp1.classList.add("ok"); pts++; } else { inp1.classList.add("bad"); }
+      if (a2 === "1111") { inp2.classList.add("ok"); pts++; } else { inp2.classList.add("bad"); }
+
+      // Сравнение 1: 11010_2 (26) = 32_8 (26)
+      document.getElementById("b2-cmp1-row").querySelectorAll(".choice-btn").forEach(b => {
+        b.classList.remove("selected");
+        if (b.textContent === state.b2Cmp.c1) {
+          if (state.b2Cmp.c1 === "=") { b.classList.add("correct"); pts++; }
+          else { b.classList.add("wrong"); }
+        }
+      });
+
+      // Сравнение 2: 1F_16 (31) > 11101_2 (29)
+      document.getElementById("b2-cmp2-row").querySelectorAll(".choice-btn").forEach(b => {
+        b.classList.remove("selected");
+        if (b.textContent === state.b2Cmp.c2) {
+          if (state.b2Cmp.c2 === ">") { b.classList.add("correct"); pts++; }
+          else { b.classList.add("wrong"); }
+        }
+      });
+
+      state.scores.b2 = pts;
+      state.locked.b2 = true;
+      document.getElementById("btnLockB2").disabled = true;
+      markStepDone(2);
+
+      const fb = document.getElementById("b2Feedback");
+      fb.style.color = pts === 4 ? "var(--success)" : "var(--primary-dark)";
+      fb.textContent = `Блок 2 зафиксирован: ${pts} из 4 баллов. Верные ответы: 1) 10001; 2) 1111; 3) = (26 = 26); 4) > (31 > 29).`;
+    }
+
+    // --- БЛОК 3: АЛГЕБРА ЛОГИКИ И СХЕМА (5 БАЛЛОВ) ---
+    function pickStmt(key, val, btn) {
+      if (state.locked.b3) return;
+      state.b3Stmt[key] = val;
+      const rowId = key === "s1" ? "b3-st1-row" : "b3-st2-row";
+      document.getElementById(rowId).querySelectorAll(".choice-btn").forEach(b => b.classList.remove("selected"));
+      btn.classList.add("selected");
+    }
+
+    function pickGate(val, btn) {
+      if (state.locked.b3) return;
+      state.b3Gate = val;
+      document.getElementById("b3-gate-row").querySelectorAll(".choice-btn").forEach(b => b.classList.remove("selected"));
+      btn.classList.add("selected");
+    }
+
+    function gradeBlock3() {
+      if (state.locked.b3) return;
+
+      const tVals = [0, 1, 2, 3].map(i => document.getElementById(`tt-${i}`).value);
+      if (!state.b3Stmt.s1 || !state.b3Stmt.s2 || tVals.includes("") || !state.b3Gate) {
+        alert("Выполни все пункты (3.1, 3.2 и 3.3) в Блоке 3 перед фиксацией!");
+        return;
+      }
+
+      let pts = 0;
+
+      // 3.1 (2 балла)
+      const s1Ok = state.b3Stmt.s1 === "1";
+      document.getElementById("b3-st1-row").querySelectorAll(".choice-btn").forEach(b => {
+        if (b.classList.contains("selected")) {
+          b.classList.remove("selected");
+          b.classList.add(s1Ok ? "correct" : "wrong");
+        }
+      });
+      if (s1Ok) pts++;
+
+      const s2Ok = state.b3Stmt.s2 === "0";
+      document.getElementById("b3-st2-row").querySelectorAll(".choice-btn").forEach(b => {
+        if (b.classList.contains("selected")) {
+          b.classList.remove("selected");
+          b.classList.add(s2Ok ? "correct" : "wrong");
+        }
+      });
+      if (s2Ok) pts++;
+
+      // 3.2 Таблица истинности (до 2 баллов: 4/4 -> 2 б., 3/4 -> 1 б.)
+      const expectedTT = ["1", "1", "0", "1"];
+      let ttCorrect = 0;
+      expectedTT.forEach((exp, idx) => {
+        const sel = document.getElementById(`tt-${idx}`);
+        sel.disabled = true;
+        if (sel.value === exp) { sel.classList.add("ok"); ttCorrect++; }
+        else { sel.classList.add("bad"); }
+      });
+      if (ttCorrect === 4) pts += 2;
+      else if (ttCorrect === 3) pts += 1;
+
+      // 3.3 Схема (1 балл: (1 И 0) ИЛИ (НЕ 1) = 0 ИЛИ 0 = 0)
+      const gateOk = state.b3Gate === "0";
+      document.getElementById("b3-gate-row").querySelectorAll(".choice-btn").forEach(b => {
+        if (b.classList.contains("selected")) {
+          b.classList.remove("selected");
+          b.classList.add(gateOk ? "correct" : "wrong");
+        }
+      });
+      if (gateOk) pts++;
+
+      state.scores.b3 = pts;
+      state.locked.b3 = true;
+      document.getElementById("btnLockB3").disabled = true;
+      markStepDone(3);
+
+      const fb = document.getElementById("b3Feedback");
+      fb.style.color = pts === 5 ? "var(--success)" : "var(--primary-dark)";
+      fb.textContent = `Блок 3 зафиксирован: ${pts} из 5 баллов. Высказывания: А=1, Б=0; Таблица: 1, 1, 0, 1; Выход схемы F = 0.`;
+    }
+
+    // --- БЛОК 4: ИТОГОВЫЙ ТЕСТ (7 БАЛЛОВ) ---
+    const quizData = [
+      {
+        q: "1. Сколько единиц содержится в двоичной записи десятичного числа 63?",
+        options: ["5 единиц", "6 единиц", "7 единиц"],
+        correct: 1
+      },
+      {
+        q: "2. Для какого наибольшего целого числа X истинно высказывание: НЕ (X > 18) И (X чётное)?",
+        options: ["16", "18", "20"],
+        correct: 1
+      },
+      {
+        q: "3. Какая из приведённых записей чисел содержит ошибку для указанного основания системы счисления?",
+        options: ["1011₂", "128₈", "3F₁₆"],
+        correct: 1
+      },
+      {
+        q: "4. Укажите правильный порядок выполнения логических операций в выражении без скобок (от высшего приоритета к низшему):",
+        options: [
+          "Инверсия (НЕ) → Конъюнкция (И) → Дизъюнкция (ИЛИ)",
+          "Дизъюнкция (ИЛИ) → Конъюнкция (И) → Инверсия (НЕ)",
+          "Конъюнкция (И) → Дизъюнкция (ИЛИ) → Инверсия (НЕ)"
+        ],
+        correct: 0
+      },
+      {
+        q: "5. Сколько значащих нулей в двоичной записи десятичного числа 32?",
+        options: ["4 нуля", "5 нулей", "6 нулей"],
+        correct: 1
+      },
+      {
+        q: "6. В языке запросов поискового сервера по запросу «Солнце | Луна» найдено 500 тыс. страниц, по запросу «Солнце» — 320 тыс., по запросу «Луна» — 280 тыс. Сколько страниц (в тыс.) будет найдено по запросу «Солнце & Луна»?",
+        options: ["100", "220", "600"],
+        correct: 0
+      },
+      {
+        q: "7. Чему равно значение логического выражения (1 ∨ 0) ∧ ¬(1 ∧ 0)?",
+        options: ["0", "1", "2"],
+        correct: 1
+      }
+    ];
+    const quizAnswers = {};
+
+    function renderQuiz() {
+      const box = document.getElementById("finalQuizContainer");
+      box.innerHTML = "";
+      quizData.forEach((item, qIdx) => {
+        const div = document.createElement("div");
+        div.className = "quiz-q";
+        div.innerHTML = `
+          <div><strong>${item.q}</strong></div>
+          <div id="quiz-opts-${qIdx}">
+            ${item.options.map((opt, oIdx) => `
+              <button class="quiz-opt" onclick="selectQuiz(${qIdx}, ${oIdx}, this)">${opt}</button>
+            `).join("")}
+          </div>
+        `;
+        box.appendChild(div);
+      });
+    }
+
+    function selectQuiz(qIdx, oIdx, btn) {
+      if (state.locked.b4) return;
+      quizAnswers[qIdx] = oIdx;
+      const box = document.getElementById(`quiz-opts-${qIdx}`);
+      box.querySelectorAll(".quiz-opt").forEach(b => b.classList.remove("selected"));
+      btn.classList.add("selected");
+    }
+
+    function finishControlWork() {
+      if (!state.locked.b1 || !state.locked.b2 || !state.locked.b3) {
+        alert("Сначала нажми «Зафиксировать ответы» в Блоках 1, 2 и 3!");
+        return;
+      }
+      if (Object.keys(quizAnswers).length < quizData.length) {
+        alert("Ответь на все 7 вопросов теста в Блоке 4 перед завершением работы!");
+        return;
+      }
+
+      if (!state.locked.b4) {
+        let pts4 = 0;
+        quizData.forEach((item, qIdx) => {
+          const chosen = quizAnswers[qIdx];
+          const box = document.getElementById(`quiz-opts-${qIdx}`);
+          box.querySelectorAll(".quiz-opt").forEach((b, oIdx) => {
+            b.classList.remove("selected", "correct", "wrong");
+            if (oIdx === item.correct) b.classList.add("correct");
+            else if (oIdx === chosen && chosen !== item.correct) b.classList.add("wrong");
+          });
+          if (chosen === item.correct) pts4++;
+        });
+        state.scores.b4 = pts4;
+        state.locked.b4 = true;
+        document.getElementById("btnFinishKR").disabled = true;
+        markStepDone(4);
+      }
+
+      const totalScore = state.scores.b1 + state.scores.b2 + state.scores.b3 + state.scores.b4;
+      let grade = 2;
+      let label = "Неудовлетворительно";
+      if (totalScore >= 18) { grade = 5; label = "Отлично"; }
+      else if (totalScore >= 14) { grade = 4; label = "Хорошо"; }
+      else if (totalScore >= 10) { grade = 3; label = "Удовлетворительно"; }
+
+      const mins = Math.max(1, Math.round(state.secondsElapsed / 60));
+      const d = new Date();
+      const code = `INF8-KR1-${totalScore}of20-G${grade}-${d.getDate()}${d.getMonth() + 1}`;
+
+      document.getElementById("certStudentName").textContent = state.studentName || "Ученик 8 класса";
+      document.getElementById("certGradeText").textContent = `Оценка: ${grade} (${label})`;
+      document.getElementById("certStats").textContent = `Набрано баллов: ${totalScore} из 20 (${Math.round((totalScore / 20) * 100)}%) • Время выполнения: ~${mins} мин.`;
+
+      document.getElementById("certBreakdown").innerHTML = `
+        <div class="bd-item"><strong>Блок 1 (Перевод СС):</strong><br />${state.scores.b1} из 4 баллов</div>
+        <div class="bd-item"><strong>Блок 2 (Арифметика):</strong><br />${state.scores.b2} из 4 баллов</div>
+        <div class="bd-item"><strong>Блок 3 (Логика и схемы):</strong><br />${state.scores.b3} из 5 баллов</div>
+        <div class="bd-item"><strong>Блок 4 (Итоговый тест):</strong><br />${state.scores.b4} из 7 баллов</div>
+      `;
+
+      document.getElementById("certCode").textContent = `Код проверки: ${code}`;
+      document.getElementById("certificateSection").style.display = "block";
+      document.getElementById("certificateSection").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function resetAll() {
+      if (confirm("Сбросить все результаты и пройти контрольную работу заново?")) {
+        location.reload();
+      }
+    }
+
+    renderQuiz();
+  </script>
+</body>
+</html>
